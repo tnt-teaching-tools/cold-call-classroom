@@ -1,6 +1,6 @@
 (() => {
   const showView = () => {
-    const view = location.hash === '#classroom' ? 'classroom' : location.hash === '#techniques' ? 'techniques' : 'welcome';
+    const view = location.hash === '#classroom' ? 'classroom' : location.hash === '#techniques' ? 'techniques' : location.hash === '#privacy' ? 'privacy' : 'welcome';
     document.body.dataset.view = view;
     const current = view === 'welcome' ? '#home' : '#' + view;
     document.querySelectorAll('.site-nav a').forEach(link => link.setAttribute('aria-current', link.getAttribute('href') === current ? 'page' : 'false'));
