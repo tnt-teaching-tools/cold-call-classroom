@@ -337,7 +337,6 @@ export function PickerScreen({
               </View>
             ) : (
               <View style={styles.readyState}>
-                <Text style={styles.readyEmoji}>🙌</Text>
                 <Text style={styles.readyTitle}>Every student prepares</Text>
                 <Text style={styles.readyMessage}>Your first cold call will begin a fair, shuffled round.</Text>
               </View>
@@ -469,14 +468,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   pickerCard: {
-    minHeight: 350,
+    minHeight: 210,
     overflow: 'hidden',
   },
   readyState: {
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
-    minHeight: 310,
+    minHeight: 170,
     paddingHorizontal: 20,
   },
   readyEmoji: {
@@ -484,9 +483,9 @@ const styles = StyleSheet.create({
   },
   readyTitle: {
     color: colours.ink,
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: '700',
-    marginTop: 14,
+    marginTop: 0,
     textAlign: 'center',
   },
   readyMessage: {
@@ -499,7 +498,7 @@ const styles = StyleSheet.create({
   thinkingState: {
     alignItems: 'center',
     justifyContent: 'center',
-    minHeight: 310,
+    minHeight: 170,
     paddingHorizontal: 20,
   },
   thinkingEmoji: {
