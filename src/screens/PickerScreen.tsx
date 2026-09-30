@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useWindowDimensions, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { Button } from '../components/Button';
 import { Card } from '../components/Card';
@@ -53,6 +53,7 @@ export function PickerScreen({
   onSetOutcome,
   onReturnToStudent,
 }: PickerScreenProps) {
+  const wide = useWindowDimensions().width >= 860;
   const [countdown, setCountdown] = useState<number | null>(null);
   const [timerPhase, setTimerPhase] = useState<'think' | 'pair' | 'check' | null>(null);
   const [activePrompt, setActivePrompt] = useState('');
@@ -195,9 +196,9 @@ export function PickerScreen({
   return (
     <ScrollView contentContainerStyle={styles.content}>
       <ScreenHeader
-        eyebrow="Equitable questioning"
-        title="Cold call"
-        subtitle="Ask the question first, give everyone thinking time, then reveal the student."
+        eyebrow="CLASSROOM WORKSPACE"
+        title="Live questioning"
+        subtitle="A fair way to bring every student into the conversation."
       />
 
       {classes.length === 0 ? (
@@ -211,11 +212,13 @@ export function PickerScreen({
           />
         </Card>
       ) : (
-        <>
+        <View style={[styles.workspace, wide && styles.workspaceWide]}>
+          <View style={[styles.sidebar, wide && styles.sidebarWide]}>
+          <Text style={styles.sidebarTitle}>ACTIVE CLASS</Text>
           <ScrollView
-            horizontal
+            horizontal={!wide}
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.classChips}
+            contentContainerStyle={[styles.classChips, wide && { flexDirection: 'column' }]}
           >
             {classes.map((classItem) => {
               const active = classItem.id === activeClass?.id;
@@ -252,7 +255,18 @@ export function PickerScreen({
             <Text style={styles.progressHint}>{selectionMode === 'mixed' ? 'Whole-class coverage with occasional revisits to keep everyone thinking.' : 'No student repeats until every present student has been selected.'}</Text>
           </Card> : null}
 
-          <Card style={styles.pickerCard}>
+          <View style={[styles.routineGuide, !wide && { display: 'none' }]}>
+            <Text style={styles.sidebarTitle}>THE ROUTINE</Text>
+            <Text style={styles.guideStep}>01  Ask the question</Text>
+            <Text style={styles.guideCopy}>Give everyone something to think about.</Text>
+            <Text style={styles.guideStep}>02  Give thinking time</Text>
+            <Text style={styles.guideCopy}>{waitSeconds} seconds before a name is revealed.</Text>
+            <Text style={styles.guideStep}>03  Invite a response</Text>
+            <Text style={styles.guideCopy}>Listen, probe and build on their thinking.</Text>
+          </View>
+          </View>
+          <View style={styles.stage}>
+          <Card style={[styles.pickerCard, !latestPick && countdown === null && styles.readyCard]}>
             {countdown !== null ? (
               <View style={styles.thinkingState}>
                 <Text style={styles.thinkingEmoji}>💭</Text>
@@ -337,10 +351,18 @@ export function PickerScreen({
               </View>
             ) : (
               <View style={styles.readyState}>
-                <Text style={styles.readyTitle}>Every student prepares</Text>
-                <Text style={styles.readyMessage}>Your first cold call will begin a fair, shuffled round.</Text>
+                <Text style={styles.readyEyebrow}>READY WHEN YOU ARE</Text>
+                <Text style={styles.readyTitle}>{'Make room for\nevery voice.'}</Text>
+                <Text style={styles.readyMessage}>Ask your question, then start the timer. A student will be selected after everyone has had time to think.</Text>
               </View>
             )}
+          <Button
+            disabled={presentStudents.length === 0 || countdown !== null}
+            onPress={() => startColdCall()}
+            style={styles.mainAction}
+          >
+            {latestPick ? `Next cold call · ${waitSeconds}s think` : `Start cold calling · ${waitSeconds}s think`}
+          </Button>
           </Card>
 
           {presentStudents.length === 0 ? (
@@ -350,13 +372,7 @@ export function PickerScreen({
             </View>
           ) : null}
 
-          <Button
-            disabled={presentStudents.length === 0 || countdown !== null}
-            onPress={() => startColdCall()}
-            style={styles.mainAction}
-          >
-            {latestPick ? `Next cold call · ${waitSeconds}s think` : `Start cold calling · ${waitSeconds}s think`}
-          </Button>
+
 
           {latestPick && countdown === null ? (
             <View style={styles.secondaryActions}>
@@ -383,7 +399,8 @@ export function PickerScreen({
               ))}
             </View>
           ) : null}
-        </>
+          </View>
+        </View>
       )}
     </ScrollView>
   );
@@ -401,13 +418,24 @@ function OutcomePill({ outcome }: { outcome: Outcome }) {
 
 const styles = StyleSheet.create({
   content: {
-    padding: 20,
+    padding: 28,
     paddingBottom: 40,
   },
   classChips: {
     gap: 9,
     paddingBottom: 16,
   },
+  workspace: { gap: 24 },
+  workspaceWide: { flexDirection: 'row', alignItems: 'flex-start' },
+  sidebar: { padding: 20, backgroundColor: colours.white, borderColor: colours.border, borderWidth: 1, borderRadius: 12 },
+  sidebarWide: { width: 280 },
+  stage: { flex: 1, minWidth: 0 },
+  sidebarTitle: { fontSize: 10, letterSpacing: 1.6, fontWeight: '700', color: colours.inkMuted, marginBottom: 12 },
+  routineGuide: { borderTopWidth: 1, borderTopColor: colours.border, paddingTop: 20, marginTop: 8 },
+  guideStep: { fontSize: 13, fontWeight: '600', color: colours.ink, marginTop: 12 },
+  guideCopy: { fontSize: 12, lineHeight: 18, color: colours.inkMuted, marginTop: 4 },
+  readyCard: { backgroundColor: '#252722', borderColor: '#252722', padding: 28 },
+  readyEyebrow: { color: '#EBC35B', fontSize: 10, fontWeight: '700', letterSpacing: 2, marginBottom: 20 },
   classChip: {
     backgroundColor: colours.white,
     borderColor: colours.border,
@@ -431,6 +459,10 @@ const styles = StyleSheet.create({
   },
   progressCard: {
     marginBottom: 15,
+    borderWidth: 0,
+    shadowOpacity: 0,
+    elevation: 0,
+    padding: 0,
   },
   roundRow: {
     alignItems: 'center',
@@ -468,28 +500,31 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   pickerCard: {
-    minHeight: 210,
+    minHeight: 310,
     overflow: 'hidden',
   },
   readyState: {
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
-    minHeight: 170,
+    minHeight: 250,
     paddingHorizontal: 20,
   },
   readyEmoji: {
     fontSize: 64,
   },
   readyTitle: {
-    color: colours.ink,
-    fontSize: 22,
+    color: '#FAFAF5',
+    fontSize: 40,
+    lineHeight: 46,
+    letterSpacing: -1,
     fontWeight: '700',
     marginTop: 0,
     textAlign: 'center',
   },
   readyMessage: {
-    color: colours.inkMuted,
+    color: '#D0D1C9',
+    maxWidth: 430,
     fontSize: 15,
     lineHeight: 22,
     marginTop: 8,
@@ -498,7 +533,7 @@ const styles = StyleSheet.create({
   thinkingState: {
     alignItems: 'center',
     justifyContent: 'center',
-    minHeight: 170,
+    minHeight: 250,
     paddingHorizontal: 20,
   },
   thinkingEmoji: {

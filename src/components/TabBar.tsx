@@ -40,7 +40,9 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colours.white,
     borderTopColor: colours.border,
-    borderTopWidth: 1,
+    borderTopWidth: 0,
+    borderBottomWidth: 1,
+    borderBottomColor: colours.border,
     flexDirection: 'row',
     paddingBottom: 8,
     paddingHorizontal: 8,
@@ -48,13 +50,16 @@ const styles = StyleSheet.create({
   },
   tab: {
     alignItems: 'center',
-    borderRadius: 8,
+    borderRadius: 0,
+    borderBottomWidth: 3,
+    borderBottomColor: 'transparent',
     flex: 1,
     minHeight: 46,
     justifyContent: 'center',
   },
   activeTab: {
-    backgroundColor: colours.ink,
+    backgroundColor: colours.white,
+    borderBottomColor: colours.purple,
   },
   pressed: {
     opacity: 0.72,
@@ -69,7 +74,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   activeLabel: {
-    color: colours.white,
+    color: colours.purpleDark,
     fontWeight: '700',
   },
 });

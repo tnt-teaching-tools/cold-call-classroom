@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { Platform, SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
 
 import { TabBar } from './src/components/TabBar';
 import { makeId } from './src/domain/ids';
@@ -326,7 +326,7 @@ export default function App() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar barStyle="dark-content" backgroundColor={colours.canvas} />
-      <View style={styles.appHeader}>
+      {Platform.OS !== 'web' ? <View style={styles.appHeader}>
         <View style={styles.brandRow}>
           <View style={styles.brandIcon}>
             <Text style={styles.brandIconText}>TNT</Text>
@@ -341,6 +341,8 @@ export default function App() {
         </View>
       </View>
 
+      : null}
+      {Platform.OS === 'web' ? <TabBar activeTab={activeTab} onChange={setActiveTab} /> : null}
       <View style={styles.screen}>
         {activeTab === 'pick' ? (
           <PickerScreen
@@ -401,7 +403,7 @@ export default function App() {
           />
         ) : null}
       </View>
-      <TabBar activeTab={activeTab} onChange={setActiveTab} />
+      {Platform.OS !== 'web' ? <TabBar activeTab={activeTab} onChange={setActiveTab} /> : null}
     </SafeAreaView>
   );
 }

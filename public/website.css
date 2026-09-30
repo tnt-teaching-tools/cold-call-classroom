@@ -24,3 +24,19 @@ h1{font-size:28px;letter-spacing:-.6px;margin:8px 0;font-weight:700}
 button{border-radius:6px;font-size:14px}
 .web-tools{font-size:11px!important;line-height:1.5}
 @media(max-width:600px){h1{font-size:24px}.web-header{padding:18px 16px 12px}}
+
+/* Product header and dashboard frame. */
+.web-header,#root{max-width:1200px}
+.web-header{display:grid;grid-template-columns:1fr 330px;gap:16px 32px;padding:22px 28px 14px;border-top:0;background:#fff}
+.web-intro{margin-bottom:0;padding-left:58px;position:relative}
+.web-intro:before{content:"TNT";position:absolute;left:0;top:4px;width:42px;height:46px;display:grid;place-items:center;background:#252722;color:#ebc35b;border-radius:8px;font-size:12px;font-weight:800;letter-spacing:-.5px}
+.web-label{font-size:10px;color:#77786e;letter-spacing:1.6px}
+h1{font-size:24px;margin:5px 0 0;letter-spacing:-.7px}
+.web-intro p{margin:4px 0 0;font-size:12px}
+.feedback-panel{align-self:center;background:#fff;border-color:#d9dacf}
+.feedback-panel summary{font-size:12px;text-align:center;padding:12px 8px}
+.feedback-panel[open]{grid-column:1/-1;grid-row:2}
+.web-tools{grid-column:1/-1;margin-top:0;padding-top:10px;border-top:1px solid #eeeeea;color:#77786e}
+#analytics-consent{grid-column:1/-1}
+#root{height:calc(100dvh - 150px)!important;min-height:560px}
+@media(max-width:700px){.web-header{grid-template-columns:1fr;padding:18px 16px 12px;gap:12px}.feedback-panel{grid-column:1}.feedback-panel[open]{grid-row:auto}.web-intro p{line-height:1.4}.web-tools span{max-width:100%}#root{height:calc(100dvh - 215px)!important}}
