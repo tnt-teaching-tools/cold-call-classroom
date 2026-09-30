@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "Cold Call Classroom",
+    "slug": "cold-call-classroom",
+    "version": "1.0.1",
+    "orientation": "portrait",
+    "scheme": "coldcallclassroom",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "icon": "./assets/icon.png",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tntteachingtools.coldcallclassroom",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "com.tntteachingtools.coldcallclassroom",
+      "versionCode": 2,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#6C5CE7"
+      }
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "extra": {
+      "privacyModel": "first-name-and-last-initial-only",
+      "eas": {
+        "projectId": "fa74b3ca-68c4-496d-985f-f8ac646170a0"
+      }
+    },
+    "owner": "tnt-teaching-toolss-team",
+    "experiments": {
+      "baseUrl": "/cold-call-classroom"
+    }
+  }
+}
