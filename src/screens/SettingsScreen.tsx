@@ -1,13 +1,17 @@
 import { confirmAction } from '../confirm';
-import { Alert, ScrollView, StyleSheet, Switch, Text, TextInput, View } from 'react-native';
+import { useState } from 'react';
+import { Platform, ScrollView, StyleSheet, Switch, Text, TextInput, View } from 'react-native';
 
 import { Button } from '../components/Button';
 import { Card } from '../components/Card';
 import { ScreenHeader } from '../components/ScreenHeader';
 import { colours, radius } from '../theme';
-import type { AppSettings } from '../types';
+import { chooseBackup, downloadBackup } from '../backup';
+import type { AppData, AppSettings } from '../types';
 
 interface SettingsScreenProps {
+  data: AppData;
+  onImportData: (data: AppData) => Promise<void>;
   settings: AppSettings;
   classCount: number;
   historyCount: number;
@@ -16,12 +20,26 @@ interface SettingsScreenProps {
 }
 
 export function SettingsScreen({
+  data,
+  onImportData,
   settings,
   classCount,
   historyCount,
   onUpdateSettings,
   onDeleteAllData,
 }: SettingsScreenProps) {
+  const [backupStatus, setBackupStatus] = useState('');
+  const [importing, setImporting] = useState(false);
+  const importBackup = () => chooseBackup((saved) => {
+    confirmAction('Replace this browser’s saved data?', `This backup contains ${saved.classes.length} classes and ${saved.history.length} records. It will replace the classes, history and settings saved here. Export a backup first if you want to keep them.`, () => {
+      setImporting(true);
+      void onImportData(saved).then(() => setBackupStatus('Backup imported. Your classes, history and settings are ready.')).catch(() => setBackupStatus('The backup could not be saved. Your existing data has not been replaced.')).finally(() => setImporting(false));
+    });
+  }, setBackupStatus);
+  const exportBackup = () => {
+    try { downloadBackup(data); setBackupStatus('Backup download started. Save the file somewhere private.'); }
+    catch (e) { setBackupStatus(e instanceof Error ? e.message : 'The backup could not be exported.'); }
+  };
   const confirmDelete = () => {
     confirmAction('Delete all local data?', 'This permanently removes every class, cold-call round and response note from this browser.', onDeleteAllData);
   };
@@ -133,7 +151,7 @@ export function SettingsScreen({
           <Text style={styles.privacyIcon}>🔒</Text>
           <View style={styles.privacyCopy}>
             <Text style={styles.privacyTitle}>Privacy by design</Text>
-            <Text style={styles.privacyText}>This prototype stores information locally on this device.</Text>
+            <Text style={styles.privacyText}>Class information stays in this browser. Backup files are saved on your device.</Text>
           </View>
         </View>
         <PrivacyRule text="Only a first name and one surname initial are accepted." />
@@ -143,6 +161,18 @@ export function SettingsScreen({
         <PrivacyRule text="Teachers can permanently delete classes and history." />
       </Card>
 
+      {Platform.OS === 'web' ? <>
+        <Text style={styles.sectionTitle}>Back up or move between devices</Text>
+        <Card style={styles.cardSpacing}>
+          <Text style={styles.settingDescription}>Export your classes, attendance, participation history, rounds and settings as a backup file. Move that file privately to your other device, open this website there and choose Import backup.</Text>
+          <View style={styles.optionStack}>
+            <Button onPress={exportBackup} disabled={importing}>Export backup</Button>
+            <Button variant="ghost" onPress={importBackup} disabled={importing}>Import backup</Button>
+          </View>
+          <Text style={styles.settingDescription}>This is a manual transfer. Devices do not sync automatically. The file contains student information: keep it private and avoid shared or public links. Import replaces the data on this browser.</Text>
+          {backupStatus ? <Text accessibilityRole="alert" style={styles.settingDescription}>{backupStatus}</Text> : null}
+        </Card>
+      </> : null}
       <Text style={styles.sectionTitle}>Local data</Text>
       <Card style={styles.cardSpacing}>
         <View style={styles.dataRow}>
@@ -160,8 +190,8 @@ export function SettingsScreen({
 
       <View style={styles.versionBox}>
         <Text style={styles.versionBrand}>Cold Call Classroom</Text>
-        <Text style={styles.versionText}>Android release candidate · Version 1.0.1</Text>
-        <Text style={styles.versionNote}>Working name pending final trademark and store checks.</Text>
+        <Text style={styles.versionText}>Website · Version 1.0.1</Text>
+        <Text style={styles.versionNote}>No account or cloud storage required.</Text>
       </View>
     </ScrollView>
   );

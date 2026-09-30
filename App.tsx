@@ -391,6 +391,8 @@ export default function App() {
 
         {activeTab === 'settings' ? (
           <SettingsScreen
+            data={data}
+            onImportData={async (saved) => { await saveAppData(saved); setData(saved); }}
             classCount={data.classes.length}
             historyCount={data.history.length}
             onDeleteAllData={deleteAllData}

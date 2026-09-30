@@ -1,0 +1,11 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { decodeBackup, encodeBackup } from '../src/backup';
+import { EMPTY_APP_DATA, type AppData } from '../src/types';
+const data: AppData = { ...EMPTY_APP_DATA, classes: [{ id: 'class_1', name: 'Science', createdAt:'2026-10-01T00:00:00Z', updatedAt:'2026-10-01T00:00:00Z', students:[{id:'student_1',firstName:'Aroha',lastInitial:'M',avatar:'🌟',accent:'#6C5CE7',absent:true}] }], activeClassId:'class_1', history:[{id:'pick_1',classId:'class_1',className:'Science',studentId:'student_1',studentLabel:'Aroha M.',studentAvatar:'🌟',timestamp:'2026-10-01T00:00:00Z',outcome:'partial'}], roundStates: {class_1:{queue:[],pickedThisRound:['student_1'],lastPickedId:'student_1',round:1}} };
+test('backup preserves classes, attendance, history, rounds and settings', () => assert.deepEqual(decodeBackup(encodeBackup(data)), data));
+test('invalid JSON and unrelated files are rejected', () => { assert.throws(()=>decodeBackup('broken')); assert.throws(()=>decodeBackup('{}')); });
+test('backup cannot bypass student name validation', () => { const b=JSON.parse(encodeBackup(data)); b.data.classes[0].students[0].lastInitial='Smith'; assert.throws(()=>decodeBackup(JSON.stringify(b))); });
+test('dangling history and duplicate identifiers are rejected', () => { const b=JSON.parse(encodeBackup(data)); b.data.history[0].studentId='missing'; assert.throws(()=>decodeBackup(JSON.stringify(b))); const c=JSON.parse(encodeBackup(data)); c.data.classes.push(c.data.classes[0]); assert.throws(()=>decodeBackup(JSON.stringify(c))); });
+test('untrusted history labels and extra properties are not restored', () => { const b=JSON.parse(encodeBackup(data)); b.data.history[0].studentLabel='Aroha Smith'; b.data.secret='extra'; const restored=decodeBackup(JSON.stringify(b)); assert.equal(restored.history[0]?.studentLabel,'Aroha M.'); assert.equal('secret' in restored,false); });
+test('unknown settings and unsafe round references are rejected', () => { const b=JSON.parse(encodeBackup(data)); b.data.settings.selectionMode='unknown'; assert.throws(()=>decodeBackup(JSON.stringify(b))); const c=JSON.parse(encodeBackup(data)); c.data.roundStates.class_1.queue=['missing']; assert.throws(()=>decodeBackup(JSON.stringify(c))); });

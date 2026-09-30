@@ -24,3 +24,7 @@ npm test
 npm run build:web
 
 Static output is `dist/`. The `/cold-call-classroom` base path is set in `app.json`; change it if the repository name changes.
+
+## Move data between devices
+
+In Settings, choose Export backup. Transfer the JSON file privately to your other device, open the website and choose Import backup. Import replaces that browser’s classes, attendance, rounds, history and settings after confirmation. Files are validated before saving. This is a manual transfer, not automatic syncing. Keep backups private: they contain student information. No class data is uploaded to a server.
