@@ -1,11 +1,32 @@
 (() => {
   const showView = () => {
-    const classroom = location.hash === '#classroom';
-    document.body.dataset.view = classroom ? 'classroom' : 'welcome';
-    document.querySelectorAll('.site-nav a').forEach(link => link.setAttribute('aria-current', link.getAttribute('href') === (classroom ? '#classroom' : '#home') ? 'page' : 'false'));
+    const view = location.hash === '#classroom' ? 'classroom' : location.hash === '#techniques' ? 'techniques' : 'welcome';
+    document.body.dataset.view = view;
+    const current = view === 'welcome' ? '#home' : '#' + view;
+    document.querySelectorAll('.site-nav a').forEach(link => link.setAttribute('aria-current', link.getAttribute('href') === current ? 'page' : 'false'));
   };
   window.addEventListener('hashchange', showView);
   showView();
+  const techniqueTabs = Array.from(document.querySelectorAll('[data-technique-tab]'));
+  const selectTechnique = tab => {
+    techniqueTabs.forEach(button => {
+      const selected = button === tab;
+      button.setAttribute('aria-selected', String(selected));
+      button.tabIndex = selected ? 0 : -1;
+      document.getElementById(button.getAttribute('aria-controls')).hidden = !selected;
+    });
+  };
+  techniqueTabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => selectTechnique(tab));
+    tab.addEventListener('keydown', event => {
+      let next;
+      if(event.key === 'ArrowRight') next = (index + 1) % techniqueTabs.length;
+      if(event.key === 'ArrowLeft') next = (index - 1 + techniqueTabs.length) % techniqueTabs.length;
+      if(event.key === 'Home') next = 0;
+      if(event.key === 'End') next = techniqueTabs.length - 1;
+      if(next !== undefined) { event.preventDefault(); selectTechnique(techniqueTabs[next]); techniqueTabs[next].focus(); }
+    });
+  });
   const config = window.COLD_CALL_CONFIG || {};
   const id = config.googleAnalyticsId;
   const validId = /^G-[A-Z0-9]+$/.test(id || '');
