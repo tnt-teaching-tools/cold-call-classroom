@@ -76,7 +76,7 @@ export function createStudent(input: StudentInput, indexHint = 0): Student {
     firstName: validation.firstName,
     lastInitial: validation.lastInitial,
     avatar: avatarOptions[optionIndex] ?? '🌟',
-    accent: accentOptions[optionIndex] ?? '#6C5CE7',
+    accent: accentOptions[optionIndex] ?? accentOptions[0] ?? '#BD3F0C',
     absent: false,
   };
 }
