@@ -329,15 +329,15 @@ export default function App() {
       <View style={styles.appHeader}>
         <View style={styles.brandRow}>
           <View style={styles.brandIcon}>
-            <Text style={styles.brandIconText}>🎯</Text>
+            <Text style={styles.brandIconText}>TNT</Text>
           </View>
           <View>
-            <Text style={styles.brandName}>Cold Call Classroom</Text>
-            <Text style={styles.brandTagline}>Every voice. Fairly heard.</Text>
+            <Text style={styles.brandName}>Teacher workspace</Text>
+            <Text style={styles.brandTagline}>TNT Teaching Tools</Text>
           </View>
         </View>
         <View style={styles.privacyBadge}>
-          <Text style={styles.privacyBadgeText}>✓ Free</Text>
+          <Text style={styles.privacyBadgeText}>Free access</Text>
         </View>
       </View>
 
@@ -426,20 +426,22 @@ const styles = StyleSheet.create({
   },
   brandIcon: {
     alignItems: 'center',
-    backgroundColor: colours.purplePale,
-    borderRadius: 15,
+    backgroundColor: colours.ink,
+    borderRadius: 8,
     height: 43,
     justifyContent: 'center',
     marginRight: 10,
     width: 43,
   },
   brandIconText: {
-    fontSize: 23,
+    color: colours.yellow,
+    fontWeight: '800',
+    fontSize: 12,
   },
   brandName: {
     color: colours.ink,
     fontSize: 15,
-    fontWeight: '900',
+    fontWeight: '700',
   },
   brandTagline: {
     color: colours.inkMuted,
@@ -448,15 +450,15 @@ const styles = StyleSheet.create({
     marginTop: 1,
   },
   privacyBadge: {
-    backgroundColor: colours.mintPale,
-    borderRadius: radius.pill,
+    backgroundColor: colours.white,
+    borderRadius: radius.small,
     paddingHorizontal: 10,
     paddingVertical: 7,
   },
   privacyBadgeText: {
-    color: '#167A55',
-    fontSize: 10,
-    fontWeight: '900',
+    color: colours.inkMuted,
+    fontSize: 11,
+    fontWeight: '700',
   },
   screen: {
     flex: 1,
@@ -474,7 +476,7 @@ const styles = StyleSheet.create({
   loadingTitle: {
     color: colours.ink,
     fontSize: 27,
-    fontWeight: '900',
+    fontWeight: '700',
     marginTop: 16,
   },
   loadingText: {

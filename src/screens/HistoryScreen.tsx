@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   },
   summaryValue: {
     fontSize: 32,
-    fontWeight: '900',
+    fontWeight: '700',
   },
   summaryLabel: {
     color: colours.ink,
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     color: colours.ink,
     fontSize: 19,
-    fontWeight: '900',
+    fontWeight: '700',
   },
   historyCard: {
     padding: 0,
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
   studentName: {
     color: colours.ink,
     fontSize: 15,
-    fontWeight: '900',
+    fontWeight: '700',
   },
   timestamp: {
     color: colours.inkMuted,
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
   },
   outcomeText: {
     fontSize: 10,
-    fontWeight: '900',
+    fontWeight: '700',
   },
   retentionNote: {
     color: colours.inkMuted,

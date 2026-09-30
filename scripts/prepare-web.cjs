@@ -1,10 +1,13 @@
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
+const assetVersion = crypto.createHash('sha256').update(['website.css', 'website.js', 'site-config.js'].map(name => fs.readFileSync(path.join(__dirname, '../public', name))).join('')).digest('hex').slice(0,12);
 const folder = path.join(__dirname, '..', 'dist');
 const index = path.join(folder, 'index.html');
 let html = fs.readFileSync(index, 'utf8');
 html = html.replace('</head>', '<meta name="description" content="Free classroom cold calling, thinking time and participation tools for teachers."><link rel="stylesheet" href="./website.css"><script src="./site-config.js" defer></script><script src="./website.js" defer></script></head>');
 html = html.replace('<div id="root">', fs.readFileSync(path.join(__dirname, '../public/topbar.html'), 'utf8') + '<div id="root">');
+html = html.replaceAll('./website.css', './website.css?v=' + assetVersion).replaceAll('./website.js', './website.js?v=' + assetVersion).replaceAll('./site-config.js', './site-config.js?v=' + assetVersion);
 html = html.replaceAll('src="/_expo/', 'src="./_expo/').replaceAll('href="/_expo/', 'href="./_expo/');
 fs.writeFileSync(index, html);
 for (const name of fs.readdirSync(path.join(__dirname, '../public'))) if(name !== 'topbar.html') fs.copyFileSync(path.join(__dirname, '../public', name), path.join(folder, name));

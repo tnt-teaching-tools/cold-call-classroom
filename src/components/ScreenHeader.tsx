@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   eyebrow: {
     color: colours.purple,
     fontSize: 12,
-    fontWeight: '900',
+    fontWeight: '700',
     letterSpacing: 1.1,
     marginBottom: 5,
     textTransform: 'uppercase',
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   title: {
     color: colours.ink,
     fontSize: 30,
-    fontWeight: '900',
+    fontWeight: '700',
     letterSpacing: -0.6,
   },
   subtitle: {

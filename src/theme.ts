@@ -14,25 +14,25 @@ export const colours = {
   mint: '#34C98B',
   mintPale: '#DDF8ED',
   white: '#FFFFFF',
-  canvas: '#FFFBF3',
+  canvas: '#F7F7F5',
   border: '#E9DFCF',
   danger: '#D92D4F',
   dangerPale: '#FDE7EC',
 };
 
 export const radius = {
-  small: 12,
-  medium: 18,
-  large: 26,
+  small: 8,
+  medium: 12,
+  large: 16,
   pill: 999,
 };
 
 export const shadow = {
   shadowColor: '#202020',
   shadowOffset: { width: 0, height: 6 },
-  shadowOpacity: 0.1,
-  shadowRadius: 14,
-  elevation: 4,
+  shadowOpacity: 0.04,
+  shadowRadius: 8,
+  elevation: 2,
 };
 
 export const avatarOptions = ['🌟', '🚀', '🧠', '⚡', '🌈', '🎯', '🦉', '💡'];

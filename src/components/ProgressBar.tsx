@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   value: {
     color: colours.purpleDark,
     fontSize: 14,
-    fontWeight: '900',
+    fontWeight: '700',
   },
   compactLabel: {
     fontSize: 12,

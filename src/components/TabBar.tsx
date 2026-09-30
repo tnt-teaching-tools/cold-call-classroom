@@ -28,7 +28,6 @@ export function TabBar({ activeTab, onChange }: TabBarProps) {
             onPress={() => onChange(tab.key)}
             style={({ pressed }) => [styles.tab, active && styles.activeTab, pressed && styles.pressed]}
           >
-            <Text style={styles.emoji}>{tab.emoji}</Text>
             <Text style={[styles.label, active && styles.activeLabel]}>{tab.label}</Text>
           </Pressable>
         );
@@ -49,13 +48,13 @@ const styles = StyleSheet.create({
   },
   tab: {
     alignItems: 'center',
-    borderRadius: 16,
+    borderRadius: 8,
     flex: 1,
-    minHeight: 56,
+    minHeight: 46,
     justifyContent: 'center',
   },
   activeTab: {
-    backgroundColor: colours.purplePale,
+    backgroundColor: colours.ink,
   },
   pressed: {
     opacity: 0.72,
@@ -65,12 +64,12 @@ const styles = StyleSheet.create({
   },
   label: {
     color: colours.inkMuted,
-    fontSize: 11,
+    fontSize: 13,
     fontWeight: '700',
     marginTop: 2,
   },
   activeLabel: {
-    color: colours.purpleDark,
-    fontWeight: '900',
+    color: colours.white,
+    fontWeight: '700',
   },
 });

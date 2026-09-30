@@ -442,13 +442,13 @@ const styles = StyleSheet.create({
   roundEyebrow: {
     color: colours.purple,
     fontSize: 10,
-    fontWeight: '900',
+    fontWeight: '700',
     letterSpacing: 1,
   },
   roundTitle: {
     color: colours.ink,
     fontSize: 20,
-    fontWeight: '900',
+    fontWeight: '700',
     marginTop: 2,
   },
   presentPill: {
@@ -460,7 +460,7 @@ const styles = StyleSheet.create({
   presentPillText: {
     color: '#167A55',
     fontSize: 12,
-    fontWeight: '900',
+    fontWeight: '700',
   },
   progressHint: {
     color: colours.inkMuted,
@@ -485,7 +485,7 @@ const styles = StyleSheet.create({
   readyTitle: {
     color: colours.ink,
     fontSize: 24,
-    fontWeight: '900',
+    fontWeight: '700',
     marginTop: 14,
     textAlign: 'center',
   },
@@ -508,14 +508,14 @@ const styles = StyleSheet.create({
   thinkingLabel: {
     color: colours.purpleDark,
     fontSize: 18,
-    fontWeight: '900',
+    fontWeight: '700',
     marginTop: 8,
     textTransform: 'uppercase',
   },
   followUpPrompt: {
     color: colours.ink,
     fontSize: 19,
-    fontWeight: '900',
+    fontWeight: '700',
     lineHeight: 27,
     marginBottom: 10,
     textAlign: 'center',
@@ -523,7 +523,7 @@ const styles = StyleSheet.create({
   countdown: {
     color: colours.ink,
     fontSize: 92,
-    fontWeight: '900',
+    fontWeight: '700',
     lineHeight: 108,
   },
   thinkingHint: {
@@ -543,7 +543,7 @@ const styles = StyleSheet.create({
   selectedEyebrow: {
     color: colours.purple,
     fontSize: 11,
-    fontWeight: '900',
+    fontWeight: '700',
     letterSpacing: 1.3,
   },
   selectedAvatar: {
@@ -561,7 +561,7 @@ const styles = StyleSheet.create({
   selectedName: {
     color: colours.ink,
     fontSize: 48,
-    fontWeight: '900',
+    fontWeight: '700',
     letterSpacing: -1.3,
     marginTop: 10,
     maxWidth: '100%',
@@ -583,7 +583,7 @@ const styles = StyleSheet.create({
   outcomeLabel: {
     color: colours.ink,
     fontSize: 12,
-    fontWeight: '900',
+    fontWeight: '700',
   },
   privateTag: {
     color: colours.inkMuted,
@@ -605,7 +605,7 @@ const styles = StyleSheet.create({
   pauseText: {
     color: colours.ink,
     fontSize: 13,
-    fontWeight: '900',
+    fontWeight: '700',
     textAlign: 'center',
   },
   followUpSection: {
@@ -616,7 +616,7 @@ const styles = StyleSheet.create({
   followUpTitle: {
     color: colours.ink,
     fontSize: 16,
-    fontWeight: '900',
+    fontWeight: '700',
   },
   followUpHelp: {
     color: colours.inkMuted,
@@ -633,7 +633,7 @@ const styles = StyleSheet.create({
   noOptOutTitle: {
     color: colours.ink,
     fontSize: 14,
-    fontWeight: '900',
+    fontWeight: '700',
   },
   outcomeButton: {
     alignItems: 'center',
@@ -646,11 +646,11 @@ const styles = StyleSheet.create({
   },
   outcomeIcon: {
     fontSize: 18,
-    fontWeight: '900',
+    fontWeight: '700',
   },
   outcomeText: {
     fontSize: 11,
-    fontWeight: '900',
+    fontWeight: '700',
     marginTop: 2,
   },
   warningBox: {
@@ -662,7 +662,7 @@ const styles = StyleSheet.create({
   warningTitle: {
     color: colours.danger,
     fontSize: 14,
-    fontWeight: '900',
+    fontWeight: '700',
   },
   warningText: {
     color: colours.danger,
@@ -686,7 +686,7 @@ const styles = StyleSheet.create({
   recentTitle: {
     color: colours.ink,
     fontSize: 16,
-    fontWeight: '900',
+    fontWeight: '700',
     marginBottom: 10,
   },
   recentRow: {
@@ -715,7 +715,7 @@ const styles = StyleSheet.create({
   },
   outcomePillText: {
     fontSize: 10,
-    fontWeight: '900',
+    fontWeight: '700',
   },
   unmarkedPill: {
     color: colours.inkMuted,
@@ -760,12 +760,12 @@ const styles = StyleSheet.create({
   exitProjectorText: {
     color: colours.ink,
     fontSize: 12,
-    fontWeight: '900',
+    fontWeight: '700',
   },
   projectorBrand: {
     color: colours.purple,
     fontSize: 14,
-    fontWeight: '900',
+    fontWeight: '700',
     left: 24,
     letterSpacing: 1.7,
     position: 'absolute',
@@ -781,7 +781,7 @@ const styles = StyleSheet.create({
   projectorName: {
     color: colours.ink,
     fontSize: 76,
-    fontWeight: '900',
+    fontWeight: '700',
     letterSpacing: -2,
     marginTop: 12,
     maxWidth: '100%',
@@ -790,7 +790,7 @@ const styles = StyleSheet.create({
   projectorQuestion: {
     color: colours.white,
     fontSize: 42,
-    fontWeight: '900',
+    fontWeight: '700',
     lineHeight: 50,
     paddingHorizontal: 24,
     textAlign: 'center',

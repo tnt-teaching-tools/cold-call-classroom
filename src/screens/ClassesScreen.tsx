@@ -426,7 +426,7 @@ const styles = StyleSheet.create({
     borderRadius: radius.pill,
     color: colours.purpleDark,
     fontSize: 12,
-    fontWeight: '900',
+    fontWeight: '700',
     minWidth: 24,
     overflow: 'hidden',
     paddingHorizontal: 7,
@@ -449,7 +449,7 @@ const styles = StyleSheet.create({
   addClassText: {
     color: colours.purpleDark,
     fontSize: 14,
-    fontWeight: '900',
+    fontWeight: '700',
   },
   sectionRow: {
     alignItems: 'center',
@@ -469,12 +469,12 @@ const styles = StyleSheet.create({
   settingLead: {
     color: colours.ink,
     fontSize: 14,
-    fontWeight: '900',
+    fontWeight: '700',
   },
   sectionTitle: {
     color: colours.ink,
     fontSize: 23,
-    fontWeight: '900',
+    fontWeight: '700',
   },
   sectionSubtitle: {
     color: colours.inkMuted,
@@ -515,7 +515,7 @@ const styles = StyleSheet.create({
   studentName: {
     color: colours.ink,
     fontSize: 17,
-    fontWeight: '900',
+    fontWeight: '700',
   },
   absentName: {
     color: colours.inkMuted,
@@ -578,7 +578,7 @@ const styles = StyleSheet.create({
   modalTitle: {
     color: colours.ink,
     fontSize: 24,
-    fontWeight: '900',
+    fontWeight: '700',
   },
   closeButton: {
     alignItems: 'center',
@@ -596,7 +596,7 @@ const styles = StyleSheet.create({
   fieldLabel: {
     color: colours.ink,
     fontSize: 13,
-    fontWeight: '900',
+    fontWeight: '700',
     marginBottom: 7,
   },
   input: {
@@ -613,7 +613,7 @@ const styles = StyleSheet.create({
   },
   initialInput: {
     fontSize: 22,
-    fontWeight: '900',
+    fontWeight: '700',
     maxWidth: 100,
     textAlign: 'center',
   },
@@ -629,7 +629,7 @@ const styles = StyleSheet.create({
   privacyNoticeTitle: {
     color: colours.ink,
     fontSize: 14,
-    fontWeight: '900',
+    fontWeight: '700',
   },
   privacyNoticeText: {
     color: colours.inkMuted,

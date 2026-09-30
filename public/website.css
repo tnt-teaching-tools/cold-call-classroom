@@ -10,3 +10,17 @@ h1{color:#202020;font-weight:900}
 .feedback-panel summary:hover{background:#ffedb2;border-radius:10px}
 input:focus,textarea:focus,select:focus{outline:2px solid #bd3f0c;outline-offset:2px}
 #analytics-consent{background:#fff0df;border:1px solid #e9dfcf}
+
+/* Refined workspace: neutral surfaces, restrained TNT accents. */
+html,body{background:#f7f7f5!important;color:#202020}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+.web-header{background:#fff;border-top:4px solid #ffc928;border-bottom:1px solid #e5e5e1;padding:22px 24px 16px}
+.web-label{background:none;color:#963309;padding:0;border-radius:0;font-size:11px;letter-spacing:1.8px}
+h1{font-size:28px;letter-spacing:-.6px;margin:8px 0;font-weight:700}
+.web-intro p{color:#62605b;font-size:14px;line-height:1.5}
+.feedback-panel{border:1px solid #deded8;background:#fafaf8;border-radius:8px;box-shadow:none}
+.feedback-panel summary{color:#383832;font-size:13px;padding:12px 14px;font-weight:600}
+.feedback-panel summary:hover{background:#fff3df;border-radius:7px}
+button{border-radius:6px;font-size:14px}
+.web-tools{font-size:11px!important;line-height:1.5}
+@media(max-width:600px){h1{font-size:24px}.web-header{padding:18px 16px 12px}}

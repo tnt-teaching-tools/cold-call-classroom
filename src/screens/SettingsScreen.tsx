@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     color: colours.ink,
     fontSize: 17,
-    fontWeight: '900',
+    fontWeight: '700',
     marginBottom: 10,
     marginTop: 4,
   },
@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
   settingTitle: {
     color: colours.ink,
     fontSize: 15,
-    fontWeight: '900',
+    fontWeight: '700',
   },
   settingDescription: {
     color: colours.inkMuted,
@@ -339,7 +339,7 @@ const styles = StyleSheet.create({
   privacyTitle: {
     color: colours.ink,
     fontSize: 16,
-    fontWeight: '900',
+    fontWeight: '700',
   },
   privacyText: {
     color: colours.inkMuted,
@@ -365,7 +365,7 @@ const styles = StyleSheet.create({
   ruleTickText: {
     color: '#167A55',
     fontSize: 12,
-    fontWeight: '900',
+    fontWeight: '700',
   },
   ruleText: {
     color: colours.ink,
@@ -391,7 +391,7 @@ const styles = StyleSheet.create({
   dataValue: {
     color: colours.ink,
     fontSize: 16,
-    fontWeight: '900',
+    fontWeight: '700',
   },
   deleteButton: {
     marginTop: 14,
@@ -404,7 +404,7 @@ const styles = StyleSheet.create({
   versionBrand: {
     color: colours.ink,
     fontSize: 14,
-    fontWeight: '900',
+    fontWeight: '700',
   },
   versionText: {
     color: colours.inkMuted,

@@ -14,7 +14,6 @@ interface EmptyStateProps {
 export function EmptyState({ emoji, title, message, actionLabel, onAction }: EmptyStateProps) {
   return (
     <View style={styles.container}>
-      <Text style={styles.emoji}>{emoji}</Text>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.message}>{message}</Text>
       {actionLabel && onAction ? (
@@ -30,7 +29,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     paddingHorizontal: 30,
-    paddingVertical: 44,
+    paddingVertical: 32,
   },
   emoji: {
     fontSize: 52,
@@ -38,8 +37,8 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colours.ink,
-    fontSize: 22,
-    fontWeight: '900',
+    fontSize: 20,
+    fontWeight: '700',
     textAlign: 'center',
   },
   message: {
