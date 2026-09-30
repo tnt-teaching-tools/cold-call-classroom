@@ -352,7 +352,7 @@ export function PickerScreen({
             ) : (
               <View style={styles.readyState}>
                 <Text style={styles.readyEyebrow}>READY WHEN YOU ARE</Text>
-                <Text style={styles.readyTitle}>{'Make room for\nevery voice.'}</Text>
+                <Text style={styles.readyTitle}>Ready to begin</Text>
                 <Text style={styles.readyMessage}>Ask your question, then start the timer. A student will be selected after everyone has had time to think.</Text>
               </View>
             )}
@@ -434,8 +434,8 @@ const styles = StyleSheet.create({
   routineGuide: { borderTopWidth: 1, borderTopColor: colours.border, paddingTop: 20, marginTop: 8 },
   guideStep: { fontSize: 13, fontWeight: '600', color: colours.ink, marginTop: 12 },
   guideCopy: { fontSize: 12, lineHeight: 18, color: colours.inkMuted, marginTop: 4 },
-  readyCard: { backgroundColor: '#252722', borderColor: '#252722', padding: 28 },
-  readyEyebrow: { color: '#EBC35B', fontSize: 10, fontWeight: '700', letterSpacing: 2, marginBottom: 20 },
+  readyCard: { backgroundColor: '#FFFFFF', borderColor: '#E9DFCF', padding: 28 },
+  readyEyebrow: { color: '#A74A04', fontSize: 10, fontWeight: '700', letterSpacing: 2, marginBottom: 20 },
   classChip: {
     backgroundColor: colours.white,
     borderColor: colours.border,
@@ -514,16 +514,16 @@ const styles = StyleSheet.create({
     fontSize: 64,
   },
   readyTitle: {
-    color: '#FAFAF5',
-    fontSize: 40,
-    lineHeight: 46,
+    color: '#202020',
+    fontSize: 32,
+    lineHeight: 39,
     letterSpacing: -1,
     fontWeight: '700',
     marginTop: 0,
     textAlign: 'center',
   },
   readyMessage: {
-    color: '#D0D1C9',
+    color: '#707070',
     maxWidth: 430,
     fontSize: 15,
     lineHeight: 22,

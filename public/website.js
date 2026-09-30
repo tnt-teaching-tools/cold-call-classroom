@@ -1,4 +1,11 @@
 (() => {
+  const showView = () => {
+    const classroom = location.hash === '#classroom';
+    document.body.dataset.view = classroom ? 'classroom' : 'welcome';
+    document.querySelectorAll('.site-nav a').forEach(link => link.setAttribute('aria-current', link.getAttribute('href') === (classroom ? '#classroom' : '#home') ? 'page' : 'false'));
+  };
+  window.addEventListener('hashchange', showView);
+  showView();
   const config = window.COLD_CALL_CONFIG || {};
   const id = config.googleAnalyticsId;
   const validId = /^G-[A-Z0-9]+$/.test(id || '');

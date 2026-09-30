@@ -40,3 +40,43 @@ h1{font-size:24px;margin:5px 0 0;letter-spacing:-.7px}
 #analytics-consent{grid-column:1/-1}
 #root{height:calc(100dvh - 150px)!important;min-height:560px}
 @media(max-width:700px){.web-header{grid-template-columns:1fr;padding:18px 16px 12px;gap:12px}.feedback-panel{grid-column:1}.feedback-panel[open]{grid-row:auto}.web-intro p{line-height:1.4}.web-tools span{max-width:100%}#root{height:calc(100dvh - 215px)!important}}
+
+/* Reference-led education website: open white space, warm TNT accents. */
+html,body{background:#fff!important}
+.web-header{max-width:1320px;grid-template-columns:1fr auto 280px;align-items:center;padding:26px 38px 18px;gap:16px 28px;border-bottom:0}
+.web-intro{padding-left:56px}.web-intro:before{background:#171717;color:#ffd053;border-radius:50%;width:42px;height:42px;top:0}
+.web-label{font-size:9px;font-weight:600;letter-spacing:2px;color:#707070}.product-name{font-size:18px;line-height:1.4;font-weight:700;letter-spacing:-.4px;margin-top:2px}
+.site-nav{display:flex;gap:28px}.site-nav a{color:#242424;text-decoration:none;font-size:13px;font-weight:600;padding:8px 0}.site-nav a[aria-current="page"]{color:#b84900;border-bottom:2px solid #f4a21d}
+.feedback-panel{border-color:#ece9e2;border-radius:24px;background:#fff}.feedback-panel summary{font-size:11px;padding:11px 8px}.feedback-panel summary:hover{border-radius:24px;background:#fff7e9}
+.feedback-panel[open]{grid-row:auto;grid-column:1/-1;border-radius:12px}.feedback-panel form{max-width:860px;margin:0 auto}
+.web-tools{padding-top:8px;border-top:0;font-size:10px!important;justify-content:flex-end}.web-tools span{color:#888}
+#root{max-width:1244px;min-height:580px}
+body[data-view="welcome"] #root{display:none!important}body[data-view="classroom"] .landing-root{display:none}
+.landing-root{width:100%;max-width:1440px;margin:0 auto;overflow:hidden}
+.landing-hero{position:relative;display:grid;grid-template-columns:53% 47%;min-height:600px;padding:40px 70px 0;box-sizing:border-box;isolation:isolate}
+.hero-copy{padding:50px 0 66px;position:relative;z-index:2}
+.hero-kicker{font-size:10px;letter-spacing:2.5px;font-weight:700;color:#777;margin:0 0 20px}
+.hero-copy h1{font-size:clamp(42px,5.4vw,76px);line-height:1.06;letter-spacing:-2.8px;font-weight:400;color:#111;margin:0}
+.hero-copy h1 span{color:#d97008;font-weight:800;letter-spacing:-2px}
+.hero-copy h2{font-size:clamp(18px,2vw,24px);line-height:1.4;font-weight:500;letter-spacing:-.4px;margin:22px 0 24px;color:#222}
+.hero-description{font-size:15px;line-height:1.95;color:#676767;max-width:470px;margin:0 0 30px}
+.hero-cta{display:inline-flex;align-items:center;justify-content:space-between;gap:30px;text-decoration:none;background:linear-gradient(100deg,#ffcc33,#ff901e);color:#25211a;padding:18px 27px;min-width:240px;border-radius:32px;font-weight:700;font-size:14px;box-shadow:none;transition:transform .15s}
+.hero-cta:hover{transform:translateY(-2px)}.hero-cta span{font-size:21px}.hero-cta:focus-visible{outline:3px solid #943a00;outline-offset:4px}
+.hero-note{font-size:11px;color:#888;margin:15px 0 0 8px}
+
+
+
+
+.landing-features{display:grid;grid-template-columns:repeat(3,1fr);gap:50px;padding:38px 70px 36px;border-top:1px solid #efefec;background:#fff;position:relative;z-index:3}
+.landing-features>div{position:relative;padding-left:38px}.landing-features span{position:absolute;left:0;top:0;font-size:11px;line-height:26px;color:#bc5c0a;font-weight:700}.landing-features h3{font-size:16px;font-weight:600;margin:0 0 8px;letter-spacing:-.2px}.landing-features p{font-size:12px;line-height:1.8;color:#777;margin:0}
+.site-footer{display:flex;justify-content:space-between;gap:20px;padding:20px 70px;border-top:1px solid #eee;font-size:11px;color:#888}
+@media(max-width:1000px){.web-header{padding:20px 24px 12px;grid-template-columns:1fr auto}.feedback-panel{grid-column:1/-1;max-width:320px;justify-self:end}.landing-hero{padding:20px 38px 0;min-height:550px}.hero-copy{padding-top:35px}.hero-copy h1{font-size:54px}.hero-description{max-width:360px}.landing-features,.site-footer{padding-left:38px;padding-right:38px}}
+@media(max-width:700px){.web-header{padding:18px 20px 10px;gap:10px}.product-name{font-size:15px}.site-nav{gap:16px}.site-nav a{font-size:11px}.feedback-panel{justify-self:stretch;max-width:none}.web-tools{justify-content:flex-start}.web-intro{padding-left:46px}.web-intro:before{width:34px;height:36px;font-size:10px}.landing-hero{grid-template-columns:1fr;min-height:0;padding:26px 24px 0}.hero-copy{padding:16px 0 20px}.hero-copy h1{font-size:50px;letter-spacing:-2px}.hero-copy h2{font-size:20px;margin:16px 0}.hero-description{max-width:100%;font-size:14px;line-height:1.8;margin-bottom:22px}.hero-note{margin-bottom:8px}.landing-features{grid-template-columns:1fr;gap:24px;padding:28px 24px}.site-footer{padding:20px 24px;flex-direction:column;gap:10px}#root{height:calc(100dvh - 150px)!important}}
+
+/* Cartoon classroom illustration behind the welcome page. */
+.landing-hero{min-height:620px;background:#f6f3ec}
+.landing-hero:before{content:"";position:absolute;inset:0;background:url("./classroom-background.webp") center right/cover no-repeat;z-index:-2}
+.landing-hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#fff 0%,rgba(255,255,255,.97) 24%,rgba(255,255,255,.9) 43%,rgba(255,255,255,.35) 65%,rgba(255,255,255,.02) 100%);z-index:-1}
+.hero-copy{max-width:600px}.hero-description{color:#505050}.hero-note{color:#626262}
+@media(max-width:1000px){.landing-hero{min-height:560px}}
+@media(max-width:700px){.landing-hero{min-height:640px;padding-bottom:180px;grid-template-columns:1fr}.landing-hero:before{background-position:65% center}.landing-hero:after{background:linear-gradient(180deg,rgba(255,255,255,.98) 0%,rgba(255,255,255,.96) 52%,rgba(255,255,255,.4) 80%,rgba(255,255,255,.1) 100%)}.hero-copy{padding-bottom:0}.hero-copy h1{font-size:clamp(38px,10vw,50px)}}
