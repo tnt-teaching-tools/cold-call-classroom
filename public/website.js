@@ -35,14 +35,16 @@
   const getChoice = () => { try { return localStorage.getItem(key); } catch { return null; } };
   const saveChoice = value => { try { localStorage.setItem(key, value); } catch {} };
   function startAnalytics() {
-    if (!validId || running || getChoice() !== 'yes') return;
+    if (!validId || getChoice() !== 'yes') return;
+    window['ga-disable-' + id] = false;
+    if (running) return;
     running = true;
     window.dataLayer = window.dataLayer || [];
     window.gtag = function() { window.dataLayer.push(arguments); };
     window['ga-disable-' + id] = false;
     window.gtag('js', new Date());
     window.gtag('config', id, { send_page_view: false, allow_google_signals: false, allow_ad_personalization_signals: false });
-    window.gtag('event', 'page_view', { page_title: 'Cold Call Classroom', page_location: location.origin + location.pathname });
+    window.gtag('event', 'page_view', { page_title: 'Cold Call Classroom', page_location: location.origin + location.pathname, page_referrer: document.referrer ? new URL(document.referrer).origin : '' });
     const script = document.createElement('script'); script.async = true; script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(id); document.head.appendChild(script);
   }
   const panel = document.getElementById('analytics-consent');
@@ -52,6 +54,9 @@
   document.getElementById('analytics-allow').onclick = () => { saveChoice('yes'); panel.hidden = true; startAnalytics(); };
   document.getElementById('analytics-decline').onclick = () => { saveChoice('no'); if(validId) window['ga-disable-' + id] = true; panel.hidden = true; };
   startAnalytics();
+  const trackClassroom = () => { if (location.hash === '#classroom' && getChoice() === 'yes' && window.gtag) window.gtag('event', 'classroom_open'); };
+  window.addEventListener('hashchange', trackClassroom);
+  trackClassroom();
   // Only fixed event names; never read class lists, names, form fields or app storage.
   document.querySelector('.feedback-panel').addEventListener('toggle', e => { if(e.target.open && getChoice() === 'yes' && window.gtag) window.gtag('event', 'feedback_open'); });
   const form = document.getElementById('feedback-form');
