@@ -204,3 +204,8 @@ body:not([data-view="privacy"]) .privacy-root{display:none}
 .community-reviews{margin:32px 70px 0}
 @media(max-width:900px){.community-reviews{margin-left:32px;margin-right:32px}}
 @media(max-width:700px){.community-reviews{margin-left:24px;margin-right:24px}}
+
+#review-country-field[hidden] { display: none; }
+#review-form select { width: 100%; padding: 12px; border: 1px solid #d8d3ca; border-radius: 8px; background: white; color: inherit; font: inherit; }
+#review-form .review-permission { display: flex; align-items: flex-start; gap: 8px; }
+#review-form .review-permission input { width: auto; flex: 0 0 auto; margin-top: 4px; }

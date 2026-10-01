@@ -14,19 +14,28 @@
     if (!result.ok) throw new Error('Request failed');
     return body ? JSON.parse(body) : null;
   };
+  const countryCodes = 'AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BV BW BY BZ CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GS GT GU GW GY HK HM HN HR HT HU ID IE IL IM IN IO IQ IR IS IT JE JM JO JP KE KG KH KI KM KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR MS MT MU MV MW MX MY MZ NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR PS PT PW PY QA RE RO RS RU RW SA SB SC SD SE SG SH SI SJ SK SL SM SN SO SR SS ST SV SX SY SZ TC TD TF TG TH TJ TK TL TM TN TO TR TT TV TW TZ UA UG UM US UY UZ VA VC VE VG VI VN VU WF WS YE YT ZA ZM ZW'.split(' ');
+  const countryNames = new Intl.DisplayNames(['en'], {type:'region'});
+  let countryEnabled = false;
   const card = review => {
     const article = document.createElement('article'); article.className = 'review-card';
     const stars = document.createElement('p'); stars.className = 'review-stars'; stars.textContent = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating); stars.setAttribute('aria-label', review.rating + ' out of 5 stars');
     const comment = document.createElement('p'); comment.textContent = review.comment;
-    const name = document.createElement('strong'); name.textContent = review.display_name;
+    const name = document.createElement('strong'); name.textContent = review.display_name + (countryCodes.includes(review.country) ? ' · ' + countryNames.of(review.country) : '');
     article.append(stars, comment, name); return article;
   };
   if (section) {
     const form = document.getElementById('review-form'), status = document.getElementById('review-status');
     const list = document.getElementById('approved-reviews'), summary = document.getElementById('review-summary');
+    const countryField = document.getElementById('review-country-field');
+    const countrySelect = form.elements.country;
+    countryCodes.map(code => ({code,name:countryNames.of(code)})).sort((a,b) => a.name.localeCompare(b.name)).forEach(({code,name}) => countrySelect.add(new Option(name,code)));
+    const detectCountry = async () => {
+      try { await api('/rest/v1/site_reviews?select=country&limit=0'); countryEnabled = true; countryField.hidden = false; countrySelect.disabled = false; } catch {}
+    };
     const load = async () => {
       try {
-        const rows = await api('/rest/v1/site_reviews?select=rating,comment,display_name,created_at&status=eq.approved&order=created_at.desc&limit=100');
+        const rows = await api('/rest/v1/site_reviews?select=*&status=eq.approved&order=created_at.desc&limit=100');
         list.replaceChildren(...rows.map(card));
         summary.textContent = rows.length ? 'Approved teacher reviews' : 'No published reviews yet. Be the first to share your thoughts.';
       } catch { summary.textContent = 'Reviews are unavailable right now. Please try again later.'; }
@@ -38,12 +47,14 @@
       const button = form.querySelector('button[type=submit]'); button.disabled = true;
       status.textContent = 'Sending your review…';
       try {
-        await api('/rest/v1/rpc/submit_site_review', { method:'POST', body:JSON.stringify({p_rating:Number(form.elements.rating.value),p_comment:form.elements.comment.value.trim(),p_name:form.elements.display_name.value.trim() || 'Teacher'}) });
+        const payload = {p_rating:Number(form.elements.rating.value),p_comment:form.elements.comment.value.trim(),p_name:form.elements.display_name.value.trim() || 'Teacher'};
+        if (countryEnabled) payload.p_country = countrySelect.value || null;
+        await api('/rest/v1/rpc/' + (countryEnabled ? 'submit_site_review_with_country' : 'submit_site_review'), {method:'POST',body:JSON.stringify(payload)});
         form.reset(); openedAt = Date.now(); status.textContent = 'Thank you. Your review is awaiting approval and is not public yet.';
       } catch { status.textContent = 'Your review could not be sent. Your text is still here. Please try again later.'; }
       finally { button.disabled = false; }
     });
-    load(); setInterval(() => { if (!document.hidden && document.body.dataset.view === 'welcome') load(); }, 60000);
+    detectCountry().then(load); setInterval(() => { if (!document.hidden && document.body.dataset.view === 'welcome') load(); }, 60000);
   }
   if (admin) {
     document.getElementById('admin-setup').hidden = true;
