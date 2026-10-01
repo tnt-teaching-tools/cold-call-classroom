@@ -1,5 +1,6 @@
 -- Run in your Supabase SQL Editor. No API secrets belong in the website.
 begin;
+grant usage on schema public to anon, authenticated;
 create table if not exists public.review_moderators (user_id uuid primary key references auth.users(id) on delete cascade);
 alter table public.review_moderators enable row level security;
 revoke all on public.review_moderators from anon, authenticated;
@@ -38,7 +39,7 @@ $$;
 revoke all on function public.submit_site_review(integer,text,text) from public;
 grant execute on function public.submit_site_review(integer,text,text) to anon, authenticated;
 commit;
--- AFTER inviting your admin user and confirming their email, run this separately:
+-- AFTER creating your confirmed admin user, run this separately:
 -- insert into public.review_moderators(user_id)
 -- select id from auth.users where lower(email) = 'tntteachingandlearning@gmail.com' and email_confirmed_at is not null
 -- on conflict do nothing;
