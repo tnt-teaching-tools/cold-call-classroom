@@ -186,3 +186,21 @@ body:not([data-view="privacy"]) .privacy-root{display:none}
 .phone-guide-note{font-size:12px;line-height:1.8;margin:18px 0 10px;padding:14px 16px;background:#fff5dc;border-radius:8px}
 .phone-guide-help{font-size:11px;line-height:1.7;margin:0;color:#777}
 @media(max-width:700px){.phone-guide-steps{grid-template-columns:1fr;gap:12px}.phone-guide-content{padding:0 14px 16px}.phone-guide summary{font-size:12px;padding:12px 14px}.phone-guide-steps section{padding:16px}.phone-guide-note{padding:12px}}
+
+/* Moderated community feedback. */
+.community-reviews[hidden],.review-admin [hidden]{display:none!important}
+.community-reviews{border-top:1px solid #e8e3d9;padding:44px 0;margin-top:32px}
+.reviews-heading h2{font-size:30px;letter-spacing:-.7px;margin:10px 0}.reviews-heading>p:last-child{color:#666;line-height:1.7}
+.reviews-layout{display:grid;grid-template-columns:minmax(280px,1fr) minmax(280px,1fr);gap:40px;margin-top:28px}
+#review-form,#review-login{background:#fffaf0;border:1px solid #e8dfcc;border-radius:12px;padding:24px}
+#review-form label,#review-login label{display:block;font-size:13px;font-weight:600;margin-bottom:18px}
+#review-form input:not([type=radio]):not([type=checkbox]),#review-form textarea,#review-login input,.review-admin select{box-sizing:border-box;width:100%;font:inherit;border:1px solid #d7cbb6;border-radius:6px;padding:11px;margin-top:8px;background:#fff;color:#282828}
+.rating-picker{border:0;padding:0;margin:0 0 20px}.rating-picker legend{font-size:13px;font-weight:600;margin-bottom:12px}.rating-options{display:flex;gap:8px;flex-wrap:wrap}.rating-options label{margin:0!important;cursor:pointer}.rating-options input{position:absolute;opacity:0;width:1px;height:1px}.rating-options span:not(.sr-only){display:block;padding:12px 14px;background:white;border:1px solid #d7cbb6;border-radius:6px;color:#805000}.rating-options input:checked+span{background:#ffdb85;border:2px solid #a95700;padding:11px 13px}.rating-options input:focus-visible+span{outline:3px solid #ad5700;outline-offset:3px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.review-permission{font-weight:400!important;line-height:1.6}.review-permission input{margin-right:6px}
+#review-form button,.review-admin button{border:0;border-radius:6px;background:#ae4900;color:#fff;font-size:13px;font-weight:650;padding:12px 18px;cursor:pointer}#review-form button:disabled,.review-admin button:disabled{opacity:.55;cursor:default}
+#review-status,#admin-status{font-size:13px;line-height:1.7}.review-list{display:grid;gap:16px}.review-card{background:#fff;border:1px solid #e8e3d9;border-radius:10px;padding:22px}.review-card p{font-size:14px;line-height:1.8;white-space:pre-wrap;overflow-wrap:anywhere}.review-card strong{font-size:12px;color:#666}.review-card .review-stars{color:#a65b00;font-size:22px;letter-spacing:3px;margin:0}.review-admin{max-width:900px;padding:36px 24px;margin:auto}.review-admin h1{font-size:32px}.review-actions{display:flex;align-items:end;gap:10px;flex-wrap:wrap;margin:18px 0}.review-admin #review-login{max-width:380px}.review-admin .review-actions label{font-size:13px}
+@media(max-width:700px){.reviews-layout{grid-template-columns:1fr;gap:24px}.community-reviews{padding-top:28px}.reviews-heading h2{font-size:25px}#review-form{padding:18px}}
+.community-reviews{margin:32px 70px 0}
+@media(max-width:900px){.community-reviews{margin-left:32px;margin-right:32px}}
+@media(max-width:700px){.community-reviews{margin-left:24px;margin-right:24px}}

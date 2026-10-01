@@ -49,5 +49,17 @@
     <div><span>02</span><h3>Thinking time</h3><p>Give everyone time to prepare before revealing a name.</p></div>
     <div><span>03</span><h3>Better follow-up</h3><p>Probe, build on answers and track participation privately.</p></div>
   </section>
+  <section id="community-reviews" class="community-reviews" hidden aria-labelledby="reviews-title">
+    <div class="reviews-heading"><p class="hero-kicker">YOUR FEEDBACK</p><h2 id="reviews-title">How’s it working for you?</h2><p>Rate the tool and share what helps, or what could be better.</p></div>
+    <div class="reviews-layout"><form id="review-form">
+      <fieldset class="rating-picker"><legend>Your rating</legend><div class="rating-options"><label><input type="radio" name="rating" value="1" required><span>1 ★</span><span class="sr-only">1 out of 5 stars</span></label><label><input type="radio" name="rating" value="2" required><span>2 ★</span><span class="sr-only">2 out of 5 stars</span></label><label><input type="radio" name="rating" value="3" required><span>3 ★</span><span class="sr-only">3 out of 5 stars</span></label><label><input type="radio" name="rating" value="4" required><span>4 ★</span><span class="sr-only">4 out of 5 stars</span></label><label><input type="radio" name="rating" value="5" required><span>5 ★</span><span class="sr-only">5 out of 5 stars</span></label></div></fieldset>
+      <label>Display name (optional)<input name="display_name" maxlength="60" placeholder="Teacher"></label>
+      <label>Your comment<textarea name="comment" required minlength="5" maxlength="2000" rows="4"></textarea></label>
+      <input name="website" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label class="review-permission"><input type="checkbox" required> I agree that my rating, display name and comment may be published after approval.</label>
+      <p class="small-print">Please leave out student details and contact information. Reviews are stored using Supabase and checked before publication. <a href="#privacy">Privacy &amp; data</a></p>
+      <button type="submit">Submit review</button><p id="review-status" role="status" aria-live="polite"></p>
+    </form><div><p id="review-summary"></p><div id="approved-reviews" class="review-list"></div></div></div>
+  </section>
   <footer class="site-footer">TNT Teaching Tools <span>Class data stays in your browser. Use Settings to back up or transfer it.</span></footer>
 </main>
