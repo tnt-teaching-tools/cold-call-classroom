@@ -5,7 +5,11 @@ const assetVersion = crypto.createHash('sha256').update(['website.css', 'website
 const folder = path.join(__dirname, '..', 'dist');
 const index = path.join(folder, 'index.html');
 let html = fs.readFileSync(index, 'utf8');
-html = html.replace('</head>', '<meta name="description" content="Free classroom cold calling, thinking time and participation tools for teachers."><link rel="stylesheet" href="./website.css"><script src="./site-config.js" defer></script><script src="./website.js" defer></script></head>');
+const siteUrl = 'https://tnt-teaching-tools.github.io/cold-call-classroom/';
+const shareTitle = 'Cold Call Classroom | Free tool for teachers';
+const shareDescription = 'Fair student selection, thinking timers and questioning routines. All features free. Use in your browser or on your phone.';
+html = html.replace(/<title>[^<]*<\/title>/, '<title>' + shareTitle + '</title>');
+html = html.replace('</head>', `<meta name="description" content="${shareDescription}"><link rel="canonical" href="${siteUrl}"><meta property="og:type" content="website"><meta property="og:site_name" content="TNT Teaching Tools"><meta property="og:title" content="${shareTitle}"><meta property="og:description" content="${shareDescription}"><meta property="og:url" content="${siteUrl}"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="${shareTitle}"><meta name="twitter:description" content="${shareDescription}"><link rel="stylesheet" href="./website.css"><script src="./site-config.js" defer></script><script src="./website.js" defer></script></head>`);
 html = html.replace('<div id="root">', fs.readFileSync(path.join(__dirname, '../public/topbar.html'), 'utf8') + fs.readFileSync(path.join(__dirname, '../public/techniques.html'), 'utf8') + fs.readFileSync(path.join(__dirname, '../public/privacy.html'), 'utf8') + '<div id="root">');
 html = html.replaceAll('./website.css', './website.css?v=' + assetVersion).replaceAll('./website.js', './website.js?v=' + assetVersion).replaceAll('./site-config.js', './site-config.js?v=' + assetVersion);
 html = html.replaceAll('src="/_expo/', 'src="./_expo/').replaceAll('href="/_expo/', 'href="./_expo/');
