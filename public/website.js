@@ -60,19 +60,16 @@
   // Only fixed event names; never read class lists, names, form fields or app storage.
   document.querySelector('.feedback-panel').addEventListener('toggle', e => { if(e.target.open && getChoice() === 'yes' && window.gtag) window.gtag('event', 'feedback_open'); });
   const form = document.getElementById('feedback-form');
-  form.addEventListener('submit', async event => {
-    event.preventDefault(); if (!form.reportValidity()) return;
-    const status = document.getElementById('feedback-status'), button = document.getElementById('feedback-send');
-    const values = Object.fromEntries(new FormData(form)); if(values._honey) return;
-    button.disabled = true; status.textContent = 'Sending feedback…';
-    try {
-      const response = await fetch('https://formsubmit.co/ajax/' + encodeURIComponent(config.feedbackEmail), { method:'POST', headers:{'Content-Type':'application/json',Accept:'application/json'}, body:JSON.stringify(values), signal:AbortSignal.timeout(15000) });
-      const result = await response.json();
-      if (!response.ok || (result.success !== true && result.success !== 'true')) throw new Error('Not accepted');
-      status.textContent = 'Feedback submitted. Thank you for helping improve the app.'; form.reset();
-      if(getChoice() === 'yes' && window.gtag) window.gtag('event','feedback_submit');
-    } catch {
-      status.textContent = 'The form could not send right now. Your message is still here. You can retry or email tntteachingandlearning@gmail.com.';
-    } finally {button.disabled = false;}
+  form.addEventListener('submit', event => {
+    if (!form.reportValidity()) { event.preventDefault(); return; }
+    if (form.elements._honey.value) { event.preventDefault(); return; }
+    // Use a normal POST so FormSubmit can display verification and service errors.
+    // Background requests can hide these behind a generic network failure.
+    document.getElementById('feedback-status').textContent = 'Opening secure feedback submission…';
   });
+  if (location.hash === '#feedback-sent') {
+    document.querySelector('.feedback-panel').open = true;
+    document.getElementById('feedback-status').textContent = 'Feedback submitted. Thank you for helping improve the app.';
+    if (getChoice() === 'yes' && window.gtag) window.gtag('event', 'feedback_submit');
+  }
 })();
