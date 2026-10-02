@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
-const assetVersion = crypto.createHash('sha256').update(['website.css', 'website.js', 'site-config.js', 'reviews.js'].map(name => fs.readFileSync(path.join(__dirname, '../public', name))).join('')).digest('hex').slice(0,12);
+const assetVersion = crypto.createHash('sha256').update(['website.css', 'website.js', 'site-config.js', 'reviews.js'].map(name => fs.readFileSync(path.join(__dirname, '../public', name))).join('') + fs.readFileSync(path.join(__dirname,'display/client.js')) + fs.readFileSync(path.join(__dirname,'display/protocol.ts')) + fs.readFileSync(path.join(__dirname,'../public/display.css'))).digest('hex').slice(0,12);
 const folder = path.join(__dirname, '..', 'dist');
 const index = path.join(folder, 'index.html');
 let html = fs.readFileSync(index, 'utf8');
@@ -9,10 +9,14 @@ const siteUrl = 'https://tnt-teaching-tools.github.io/cold-call-classroom/';
 const shareTitle = 'Cold Call Classroom | Free tool for teachers';
 const shareDescription = 'Fair student selection, thinking timers and questioning routines. All features free. Use in your browser or on your phone.';
 html = html.replace(/<title>[^<]*<\/title>/, '<title>' + shareTitle + '</title>');
-html = html.replace('</head>', `<meta name="description" content="${shareDescription}"><link rel="canonical" href="${siteUrl}"><meta property="og:type" content="website"><meta property="og:site_name" content="TNT Teaching Tools"><meta property="og:title" content="${shareTitle}"><meta property="og:description" content="${shareDescription}"><meta property="og:url" content="${siteUrl}"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="${shareTitle}"><meta name="twitter:description" content="${shareDescription}"><link rel="stylesheet" href="./website.css"><script src="./site-config.js" defer></script><script src="./website.js" defer></script><script src="./reviews.js" defer></script></head>`);
+html = html.replace('</head>', `<meta name="description" content="${shareDescription}"><link rel="canonical" href="${siteUrl}"><meta property="og:type" content="website"><meta property="og:site_name" content="TNT Teaching Tools"><meta property="og:title" content="${shareTitle}"><meta property="og:description" content="${shareDescription}"><meta property="og:url" content="${siteUrl}"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="${shareTitle}"><meta name="twitter:description" content="${shareDescription}"><link rel="stylesheet" href="./website.css"><script src="./site-config.js" defer></script><script src="./display-client.js" defer></script><script src="./website.js" defer></script><script src="./reviews.js" defer></script></head>`);
 html = html.replace('<div id="root">', fs.readFileSync(path.join(__dirname, '../public/topbar.html'), 'utf8') + fs.readFileSync(path.join(__dirname, '../public/techniques.html'), 'utf8') + fs.readFileSync(path.join(__dirname, '../public/privacy.html'), 'utf8') + '<div id="root">');
+html = html.replaceAll('./display-client.js','./display-client.js?v=' + assetVersion);
 html = html.replaceAll('./website.css', './website.css?v=' + assetVersion).replaceAll('./website.js', './website.js?v=' + assetVersion).replaceAll('./site-config.js', './site-config.js?v=' + assetVersion).replaceAll('./reviews.js', './reviews.js?v=' + assetVersion);
 html = html.replaceAll('src="/_expo/', 'src="./_expo/').replaceAll('href="/_expo/', 'href="./_expo/');
 fs.writeFileSync(index, html);
 for (const name of fs.readdirSync(path.join(__dirname, '../public'))) if(!['topbar.html', 'techniques.html', 'privacy.html'].includes(name)) fs.copyFileSync(path.join(__dirname, '../public', name), path.join(folder, name));
 fs.writeFileSync(path.join(folder, '.nojekyll'), '');
+
+require('esbuild').buildSync({entryPoints:[path.join(__dirname,'display/client.js')],bundle:true,minify:true,platform:'browser',outfile:path.join(folder,'display-client.js'),target:['es2020']});
+fs.writeFileSync(path.join(folder,'display.html'),fs.readFileSync(path.join(folder,'display.html'),'utf8').replace('./display-client.js','./display-client.js?v=' + assetVersion).replace('./display.css','./display.css?v=' + assetVersion));

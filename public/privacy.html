@@ -2,8 +2,8 @@
   <section class="privacy-intro" aria-labelledby="privacy-title">
     <p class="hero-kicker">TNT TEACHING TOOLS</p>
     <h1 id="privacy-title">Privacy <span>&amp; data.</span></h1>
-    <p>This notice explains how the Cold Call Classroom website handles class information, feedback and website visits.</p>
-    <p class="privacy-updated">Last updated: 1 October 2026</p>
+    <p>This notice explains how the Cold Call Classroom website handles class information, optional paired displays, feedback and website visits.</p>
+    <p class="privacy-updated">Last updated: 2 October 2026</p>
   </section>
   <div class="privacy-summary" aria-label="Privacy at a glance">
     <div><strong>Class data stays in your browser</strong><span>The app does not upload class lists or history to TNT Teaching Tools.</span></div>
@@ -15,6 +15,12 @@
       <p>Class names, student first names and surname initials, attendance, participation history, response notes, rounds and settings are saved in this browser’s local storage. Students do not need accounts.</p>
       <p>The app does not send these saved records to TNT Teaching Tools, GitHub or an analytics service. First names and initials can still identify students within a class; they are not automatically anonymous.</p>
       <p>Use the tool in line with your school’s data policies. Avoid sensitive student details in notes. Use a protected device and browser profile: someone with access to the same profile may be able to see the saved information.</p>
+    </section>
+    <section><span class="privacy-number">Display</span><h2>Optional phone control and classroom display</h2>
+      <p>If you pair a phone with a classroom screen, only the selected first name and surname initial, avatar, thinking timer, pupil prompt and optional round progress are sent to that screen. Class lists, student identifiers, attendance, response outcomes and participation history are not included.</p>
+      <p>Display updates are encrypted in your browser using AES-GCM before passing through a temporary Supabase relay, and decrypted by the paired screen. The encryption key is carried in the private pairing link, never sent to the relay or analytics. Supabase stores the latest encrypted update and connection metadata, not a readable copy of the display or a history of names.</p>
+      <p>Pair before projecting and confirm the matching code on your own phone. Keep the pairing link private. Both devices need internet and the phone page must stay open and awake. This feature does not synchronise saved classes between devices.</p>
+      <p>Sessions expire after two hours. End session deletes the temporary relay record immediately when online; expired records are removed automatically within the next fifteen minutes. Pairing credentials are kept in tab session storage to allow reconnection and are cleared when you disconnect. They are not stored with your class backups. Supabase may process technical information and logs outside New Zealand under its privacy policy.</p>
     </section>
     <section><span class="privacy-number">02</span><h2>Keeping, deleting and transferring data</h2>
       <p>Local records remain until you remove them, clear the site’s browser storage or the browser removes that storage. In the app, use <strong>Settings → Delete all local data</strong> to remove saved class data from that browser. You can also delete individual classes or clear a class’s history.</p>

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useWindowDimensions, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { Button } from '../components/Button';
+import {ClassroomDisplay, usePupilDisplay, type PupilSnapshot} from '../components/ClassroomDisplay';
 import { Card } from '../components/Card';
 import { EmptyState } from '../components/EmptyState';
 import { ProgressBar } from '../components/ProgressBar';
@@ -70,6 +71,11 @@ export function PickerScreen({
   );
   const latestPick = classHistory[0];
   const progress = roundProgress(roundState, presentStudents.length);
+  const pupilSnapshot = useMemo<PupilSnapshot>(() => ({
+    ...(countdown !== null ? {mode:'timer' as const, phase:timerPhase || 'think', prompt:activePrompt, endsAt:Date.now()+countdown*1000} : latestPick ? {mode:'name' as const, name:latestPick.studentLabel, avatar:latestPick.studentAvatar} : {mode:'idle' as const}),
+    ...(showProgressToClass && selectionMode !== 'random' && activeClass ? {progress:{round:progress.round,picked:progress.picked,total:progress.eligible}} : {}),
+  }), [countdown, timerPhase, activePrompt, latestPick, showProgressToClass, selectionMode, activeClass, progress.round, progress.picked, progress.eligible]);
+  usePupilDisplay(pupilSnapshot);
 
   useEffect(() => {
     if (countdown === null) return;
@@ -153,7 +159,7 @@ export function PickerScreen({
           onPress={() => setProjectorMode(false)}
           style={styles.exitProjector}
         >
-          <Text style={styles.exitProjectorText}>Exit teacher view</Text>
+          <Text style={styles.exitProjectorText}>Exit projector view</Text>
         </Pressable>
         <Text style={styles.projectorBrand}>COLD CALL CLASSROOM</Text>
         {countdown !== null ? (
@@ -200,6 +206,8 @@ export function PickerScreen({
         title="Live questioning"
         subtitle="A fair way to bring every student into the conversation."
       />
+
+      <ClassroomDisplay />
 
       {classes.length === 0 ? (
         <Card>
