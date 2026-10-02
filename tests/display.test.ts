@@ -15,3 +15,5 @@ test('invalid display states and progress are rejected and text is bounded',()=>
  assert.equal(cleanSnapshot({mode:'idle',progress:{round:1,picked:20,total:5}}).progress,undefined);
  assert.deepEqual(cleanSnapshot(null),{mode:'idle'});
 });
+
+test('follow-up prompt is included without the private outcome',()=>{assert.deepEqual(cleanSnapshot({mode:'name',name:'Aroha M',avatar:'🙂',prompt:'What evidence supports your answer?',outcome:'partial'}),{mode:'name',name:'Aroha M',avatar:'🙂',prompt:'What evidence supports your answer?'});});

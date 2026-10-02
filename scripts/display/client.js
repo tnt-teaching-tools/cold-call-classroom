@@ -24,7 +24,7 @@ const decrypt = async (key,value) => {
 const rpc = async (name,body) => {
  if (!config || !/^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(config.url)) throw Error('Display not configured');
  const response=await fetch(config.url+'/rest/v1/rpc/display_'+name,{method:'POST',headers:{apikey:config.publishableKey,'Content-Type':'application/json'},body:JSON.stringify(body),signal:AbortSignal.timeout(10000)});
- if (!response.ok) throw Error('Connection unavailable');
+ if (!response.ok) {const error=Error('Connection unavailable');error.terminal=[400,401,403,404].includes(response.status);throw error;}
  const result=await response.text();return result ? JSON.parse(result) : null;
 };
 let session, pending, phase='idle', message='', snapshot={mode:'idle'}, stopped=false;
@@ -78,7 +78,7 @@ async function controllerTick() {
   const current=session;const sequence=++current.sequence;save();
   await rpc('write_session',{p_id:current.id,p_writer:current.writer,p_sequence:sequence,p_ciphertext:await encrypt(current.key,{...snapshot,sentAt:Date.now()})});
   lastSent=payload;lastSendAt=Date.now();
- } catch {setStatus('reconnecting','Connection lost. Reconnecting… Keep both pages open.');lastPoll=0;}
+ } catch(error) {if(error.terminal){session=null;save();setStatus('expired','Screen session ended. Create a new pairing code on the laptop.');}else{setStatus('reconnecting','Connection lost. Reconnecting… Keep both pages open.');lastPoll=0;}}
  finally {inFlight=false;}
 }
 function clearPupil() {if(!isDisplay)return;document.getElementById('pupil-content').hidden=true;document.getElementById('pupil-name').textContent='';document.getElementById('pupil-progress').textContent='';}
@@ -89,7 +89,7 @@ function renderPupil(v) {
  document.getElementById('pupil-content').hidden=false;
  setText('pupil-avatar',state.mode==='name'?state.avatar:state.mode==='timer'?(state.phase==='pair'?'🗣️':state.phase==='check'?'✍️':'💭'):'💭');
  setText('pupil-name',state.mode==='name'?state.name:state.mode==='timer'?(state.prompt || 'Thinking time'):state.mode==='paused'?'Pause for a moment':'Ready when you are');
- setText('pupil-prompt',state.mode==='name'?'We’re listening to your thinking':state.mode==='timer'?(state.phase==='pair'?'Pair and rehearse':state.phase==='check'?'Everyone responds':'Everyone prepares an answer'):'Everyone prepares an answer');
+ setText('pupil-prompt',state.mode==='name'?(state.prompt || 'We’re listening to your thinking'):state.mode==='timer'?(state.phase==='pair'?'Pair and rehearse':state.phase==='check'?'Everyone responds':'Everyone prepares an answer'):'Everyone prepares an answer');
  setText('pupil-progress',state.progress?'Round '+state.progress.round+' · '+state.progress.picked+' of '+state.progress.total+' voices heard':'');
  renderTimer();
 }
@@ -115,8 +115,9 @@ async function displayTick() {
    if(Date.now()-lastUpdate>15000) {currentState=null;clearPupil();setText('display-status','Phone disconnected. Waiting to reconnect…');}
    else {setText('display-status','');if(!currentState) {const value=await decrypt(session.key,result.ciphertext);if(value.mode!=='pair')renderPupil(value);}}
   }
- } catch {
-  setText('display-status',Date.parse(session?.expires||0)<=Date.now()?'Session ended. Create a new pairing code.':'Connection lost. Reconnecting…');
+ } catch(error) {
+  if(error.terminal){session=null;save();currentState=null;clearPupil();document.getElementById('display-setup').hidden=false;document.getElementById('display-confirm').hidden=true;document.getElementById('display-controls').hidden=true;document.getElementById('pair-details').hidden=true;}
+  setText('display-status',error.terminal || Date.parse(session?.expires||0)<=Date.now()?'Session ended. Create a new pairing code.':'Connection lost. Reconnecting…');
   if(Date.now()-lastUpdate>15000) {currentState=null;clearPupil();}
  }
  finally {inFlight=false;}

@@ -72,7 +72,7 @@ export function PickerScreen({
   const latestPick = classHistory[0];
   const progress = roundProgress(roundState, presentStudents.length);
   const pupilSnapshot = useMemo<PupilSnapshot>(() => ({
-    ...(countdown !== null ? {mode:'timer' as const, phase:timerPhase || 'think', prompt:activePrompt, endsAt:Date.now()+countdown*1000} : latestPick ? {mode:'name' as const, name:latestPick.studentLabel, avatar:latestPick.studentAvatar} : {mode:'idle' as const}),
+    ...(countdown !== null ? {mode:'timer' as const, phase:timerPhase || 'think', prompt:activePrompt, endsAt:Date.now()+countdown*1000} : latestPick ? {mode:'name' as const, name:latestPick.studentLabel, avatar:latestPick.studentAvatar, prompt:activePrompt} : {mode:'idle' as const}),
     ...(showProgressToClass && selectionMode !== 'random' && activeClass ? {progress:{round:progress.round,picked:progress.picked,total:progress.eligible}} : {}),
   }), [countdown, timerPhase, activePrompt, latestPick, showProgressToClass, selectionMode, activeClass, progress.round, progress.picked, progress.eligible]);
   usePupilDisplay(pupilSnapshot);
