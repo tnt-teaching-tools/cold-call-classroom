@@ -36,7 +36,7 @@ export function ClassroomDisplay() {
   {status.phase==='confirm'?<Text style={styles.code}>{status.code}</Text>:null}
   {status.phase==='invited'?<Button onPress={()=>{void bridge()?.connect();}}>Connect this device</Button>:null}
   {linked?<Button compact variant="ghost" onPress={()=>{void bridge()?.end();}}>Disconnect screen</Button>:<Button compact variant="ghost" onPress={()=>{window.open(new URL('display.html',window.location.href).href,'_blank','noopener');}}>Open classroom display on this device</Button>}
-  <Button compact variant="ghost" onPress={()=>{window.location.hash='projection-guide';}}>How to project · laptop or phone</Button>
+  <Button compact variant="ghost" onPress={()=>{window.open(new URL('projection.html',window.location.href).href,'_blank','noopener');}}>How to project · laptop or phone</Button>
   <Text style={styles.note}>Pair before projecting. Keep the phone awake and this page open. Class lists and response records stay on this device. Both devices need internet.</Text>
  </Card>;
 }

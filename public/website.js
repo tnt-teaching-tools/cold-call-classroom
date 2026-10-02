@@ -2,7 +2,7 @@
   const showView = () => {
     const view = location.hash === '#classroom' ? 'classroom' : location.hash === '#techniques' ? 'techniques' : location.hash === '#privacy' ? 'privacy' : 'welcome';
     document.body.dataset.view = view;
-    if(location.hash === '#projection-guide') document.getElementById('projection-guide').open = true;
+    if(location.hash === '#projection-guide') { location.replace(new URL('projection.html',location.href).href); return; }
     const current = view === 'welcome' ? '#home' : '#' + view;
     document.querySelectorAll('.site-nav a').forEach(link => link.setAttribute('aria-current', link.getAttribute('href') === current ? 'page' : 'false'));
   };
