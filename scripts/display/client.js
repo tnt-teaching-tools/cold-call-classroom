@@ -45,7 +45,7 @@ if(!isDisplay && location.hash.startsWith('#classroom/pair/')) {
   if(/^[0-9a-f-]{36}$/.test(value.id) && /^[a-f0-9]{64}$/.test(value.key) && /^[a-f0-9]{64}$/.test(value.pairing)) pending=value;
  } catch {}
  history.replaceState(null,'',location.pathname+location.search+'#classroom');
- if(pending) {if(session) {const old=session;rpc('close_session',{p_id:old.id,p_token:old.writer}).catch(()=>{});}session=null;save();setStatus('invited','Connect this phone to the classroom screen.');}
+ if(pending) {if(session) {const old=session;rpc('close_session',{p_id:old.id,p_token:old.writer}).catch(()=>{});}session=null;save();setStatus('invited','Connect this device to the classroom screen.');}
  else setStatus('error','This pairing link is invalid. Create a new code on the laptop.');
 }
 const connect = async () => {
@@ -70,7 +70,7 @@ async function controllerTick() {
    const state=await rpc('session_status',{p_id:session.id,p_writer:session.writer});lastPoll=Date.now();
    if(!state.active) {setStatus('confirm','Check '+session.code+' on the laptop, then confirm there.');return;}
    if(!state.display_seen_at || Date.now()-Date.parse(state.display_seen_at)>15000) {setStatus('reconnecting','Laptop disconnected. Keep both pages open.');return;}
-   setStatus('connected','Connected to classroom screen. Keep this phone page open and awake.');
+   setStatus('connected','Connected to classroom screen. Keep this teacher page open and awake.');
   }
   if(phase!=='connected') return;
   const payload=JSON.stringify(snapshot);
@@ -106,7 +106,7 @@ async function displayTick() {
   if(result.ciphertext && result.sequence!==lastSequence) {
    const value=await decrypt(session.key,result.ciphertext);lastSequence=result.sequence;
    if(value.mode==='pair' && /^\d{6}$/.test(value.code)) {
-    session.code=value.code;save();confirmReady=true;document.getElementById('display-confirm').hidden=false;document.getElementById('pair-details').hidden=true;setText('confirm-code',value.code);setText('display-status','Check this code matches the phone.');
+    session.code=value.code;save();confirmReady=true;document.getElementById('display-confirm').hidden=false;document.getElementById('pair-details').hidden=true;setText('confirm-code',value.code);setText('display-status','Check this code matches your teacher device.');
    } else if(result.active) {renderPupil(value);}
   }
   if(result.active) {
@@ -134,7 +134,7 @@ if(isDisplay) {
   } catch {setText('display-status','Could not create a code. Check your connection and try again.');}
   finally {button.disabled=false;}
  };
- document.getElementById('pair-copy').onclick=async()=>{try {await navigator.clipboard.writeText(document.getElementById('pair-link').value);setText('display-status','Pairing link copied. Share only with your own phone.');}catch {document.getElementById('pair-link').select();}};
+ document.getElementById('pair-copy').onclick=async()=>{try {await navigator.clipboard.writeText(document.getElementById('pair-link').value);setText('display-status','Pairing link copied. Open only on your own teacher device.');}catch {document.getElementById('pair-link').select();}};
  document.getElementById('pair-confirm').onclick=async()=>{
   if(!session || !confirmReady)return;
   try {await rpc('activate_session',{p_id:session.id,p_reader:session.reader});session.active=true;delete session.pairing;save();confirmReady=false;renderPupil({mode:'idle'});await displayTick();}

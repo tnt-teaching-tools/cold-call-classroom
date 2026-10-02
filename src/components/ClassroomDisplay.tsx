@@ -34,8 +34,9 @@ export function ClassroomDisplay() {
   <Text style={styles.title}>Control a classroom screen</Text>
   <Text style={styles.description}>{status.message || 'Open Classroom display on the laptop, then scan its private QR code with your phone. Your phone controls the lesson; the screen shows only names, timers and pupil prompts.'}</Text>
   {status.phase==='confirm'?<Text style={styles.code}>{status.code}</Text>:null}
-  {status.phase==='invited'?<Button onPress={()=>{void bridge()?.connect();}}>Connect this phone</Button>:null}
+  {status.phase==='invited'?<Button onPress={()=>{void bridge()?.connect();}}>Connect this device</Button>:null}
   {linked?<Button compact variant="ghost" onPress={()=>{void bridge()?.end();}}>Disconnect screen</Button>:<Button compact variant="ghost" onPress={()=>{window.open(new URL('display.html',window.location.href).href,'_blank','noopener');}}>Open classroom display on this device</Button>}
+  <Button compact variant="ghost" onPress={()=>{window.location.hash='projection-guide';}}>How to project · laptop or phone</Button>
   <Text style={styles.note}>Pair before projecting. Keep the phone awake and this page open. Class lists and response records stay on this device. Both devices need internet.</Text>
  </Card>;
 }
